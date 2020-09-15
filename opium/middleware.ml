@@ -2,7 +2,14 @@ include Opium_kernel.Middleware
 
 module Static = struct
   let log_src =
-    Logs.Src.create ~doc:"Opium middleware to server static files" "opium.static_server"
+    Logs.Src.create
+    
+    
+    ~doc:"Opium middleware to server static files"
+    
+    
+    
+    "opium.static_server"
   ;;
 
   module Log = (val Logs.src_log log_src : Logs.LOG)
@@ -15,12 +22,16 @@ module Static = struct
     let bufsize = 4096 in
     let fname = Filename.concat local_path fname in
     Lwt.catch
+    
       (fun () ->
         let* s = Lwt_unix.stat fname in
+        
         let* () =
           if Unix.(s.st_kind <> S_REG) then Lwt.fail Isnt_a_file else Lwt.return_unit
         in
-        let* ic =
+        
+        let* 
+        ic =
           Lwt_io.open_file
             ~buffer:(Lwt_bytes.create bufsize)
             ~flags:[ O_RDONLY ]
@@ -34,9 +45,11 @@ module Static = struct
                 (fun () ->
                   let+ b = Lwt_io.read ~count:bufsize ic in
                   match b with
-                  | "" -> None
+                  | "" 
+                  -> None
                   | buf -> Some buf)
-                (fun exn ->
+                (fun
+                exn ->
                   Log.warn (fun m ->
                       m "Error while reading file %s. %s" fname (Printexc.to_string exn));
                   Lwt.return_none))
@@ -63,11 +76,14 @@ module Static = struct
   ;;
 end
 
-let debugger = debugger ()
+let debugger = debugger 
+()
 
 let logger =
   Opium_kernel.Middleware.logger
-    ~time_f:(fun f ->
+    ~time_f:(fun 
+    
+    f ->
       let t1 = Mtime_clock.now () in
       let x = f () in
       let t2 = Mtime_clock.now () in
