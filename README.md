@@ -69,7 +69,7 @@ Here's a simple hello world example to get your feet wet:
 
 ``` ocaml
 open Opium.Std
-open Lwt.Syntax
+open Lwt.Syntax h  uj j 
 
 module Person = struct
   type t =
