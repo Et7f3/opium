@@ -20,6 +20,13 @@ jobs:
       - name: Build dependencies
         run: esy build-dependencies
       - name: Format files
-        run: esy dune build @fmt --auto-promote
+        run: esy dune build @fmt --auto-promote; git status
       - name: Display status should be clean
+        if: always()
+        run: git diff
+        
+      - name: generate readme
+        run: esy dune build README.md --auto-promote; git status
+      - name: Display status should be clean
+        if: always()
         run: git diff
