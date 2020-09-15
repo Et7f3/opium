@@ -1,4 +1,5 @@
 (rule
+ (alias readme)
  (mode promote)
  (deps (:dep README.cpp.md) (glob_files examples/*.ml))
  (target README.md)
