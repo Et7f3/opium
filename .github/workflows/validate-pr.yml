@@ -27,7 +27,7 @@ jobs:
         
       - name: generate readme
         if: always()
-        run: esy dune build README.md --auto-promote; git status
+        run: esy dune build @readme --auto-promote; git status
       - name: Display status should be clean
         if: always()
         run: git diff
